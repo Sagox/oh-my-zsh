@@ -111,9 +111,9 @@ prompt_git() {
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
     if [[ -n $dirty ]]; then
-      prompt_segment cyan black
+      prompt_segment magenta black
     else
-      prompt_segment green $CURRENT_FG
+      prompt_segment cyan $CURRENT_FG
     fi
 
     if [[ -e "${repo_path}/BISECT_LOG" ]]; then
@@ -154,7 +154,7 @@ prompt_bzr() {
                 echo -n "bzr@"$revision
 
             else
-                prompt_segment green black
+                prompt_segment cyan black
                 echo -n "bzr@"$revision
             fi
         fi
@@ -176,7 +176,7 @@ prompt_hg() {
         st='±'
       else
         # if working copy is clean
-        prompt_segment green $CURRENT_FG
+        prompt_segment cyan $CURRENT_FG
       fi
       echo -n $(hg prompt "☿ {rev}@{branch}") $st
     else
@@ -190,7 +190,7 @@ prompt_hg() {
         prompt_segment yellow black
         st='±'
       else
-        prompt_segment green $CURRENT_FG
+        prompt_segment cyan $CURRENT_FG
       fi
       echo -n "☿ $rev@$branch" $st
     fi
@@ -219,7 +219,7 @@ prompt_status() {
 
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{magenta}%}⚙"
 
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
